@@ -8,4 +8,5 @@ logs
 *.log
 
 *.tmp
+settings.json
 .env
