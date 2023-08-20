@@ -6,23 +6,22 @@ import {bot} from './modules/telegram.js'
 import { dateTimeToLocale } from "./modules/common.js";
 import express from 'express'
 import dotenv from "dotenv"
-// import https from 'https'
-import http from 'http'
+import https from 'https'
+//import http from 'http'
 import fs from 'fs'
+import fetch from "node-fetch"
 dotenv.config()
 //  *****************************************************
 
 const intervalSeconds = 10
-// const optionsServer = { key: fs.readFileSync('../certMM/key.pem'), cert: fs.readFileSync('../certMM/cert.pem') };
+const optionsServer = { key: fs.readFileSync('../cert/key.pem'), cert: fs.readFileSync('../cert/cert.pem') };
 const PORT = process.env.PORT || 3000
 const app = express()
 app.use(express.json())
 app.use(process.env.API_ECHO_PATH,   echoRouter)
 
-// let server = https.createServer(optionsServer, app);
-let server = http.createServer(app);
-
-server.listen(PORT, () => console.log(`server started on port ${PORT}`))
+let server = https.createServer(optionsServer, app);
+server.listen(PORT, (req,res) => console.log(`сервер работает на порту ${PORT}`))
 
 const checkEcho = async(serverslist) => {
 
