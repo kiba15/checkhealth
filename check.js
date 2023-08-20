@@ -37,7 +37,7 @@ const checkEcho = async(serverslist) => {
                 element.address,
                 {
                     method: "GET",
-                    port: 443,
+                    port: element.port,
                     headers: {
                     "Content-Type": "application/json",
                   //  Authorization: auth,
@@ -49,6 +49,7 @@ const checkEcho = async(serverslist) => {
 
              } catch (err) {
                 console.log(err.message);
+                console.log(element.address + ' ' + element.port)
              }
             
             // console.log(element.datetime)
@@ -90,4 +91,4 @@ serverslist.forEach( (element) => {
     element.datetime = new Date()
 }
 )
-setInterval(function() { checkEcho(serverslist) }, 6 * 1000);
+setInterval(function() { checkEcho(serverslist) }, 60 * 1000);
