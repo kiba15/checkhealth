@@ -7,7 +7,7 @@ import { dateTimeToLocale } from "./modules/common.js";
 import express from 'express'
 import dotenv from "dotenv"
 import https from 'https'
-//import http from 'http'
+import http from 'http'
 import fs from 'fs'
 import fetch from "node-fetch"
 dotenv.config()
@@ -20,8 +20,14 @@ const app = express()
 app.use(express.json())
 app.use(process.env.API_ECHO_PATH,   echoRouter)
 
-let server = https.createServer(optionsServer, app);
+let server = http.createServer(app);
 server.listen(PORT, (req,res) => console.log(`сервер работает на порту ${PORT}`))
+
+//app.get('/', function callback(req,res)
+//{
+//res.status(200).json('ok')
+//
+//})
 
 const checkEcho = async(serverslist) => {
 
