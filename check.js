@@ -45,7 +45,6 @@ const checkEcho = async(serverslist) => {
                     port: element.port,
                     headers: {
                     "Content-Type": "application/json",
-                  //  Authorization: auth,
                     },
                 }
                 );
@@ -57,20 +56,13 @@ const checkEcho = async(serverslist) => {
                 console.log(element.address + ' ' + element.port)
              }
             
-            // console.log(element.datetime)
-            // console.log('seconds ' + ((new Date() - element.datetime) / 1000))
-            // console.log('minutes' + ((new Date() - element.datetime) / 60000))
-            // console.log('hours' + ((new Date() - element.datetime) / 3600000))
+
             const hoursPassedSinceLasteActive = ((new Date() - element.datetime) / 3600 / 1000).toFixed(2)  
 
             if (status === 200) {
 
                 element.datetime = new Date()
 
-                // console.log(element.datetime)
-                // console.log(new Date())
-                // console.log(hoursPassedSinceLasteActive)
-                // console.log(' ')
             }
 
             else {
@@ -80,7 +72,12 @@ const checkEcho = async(serverslist) => {
                 if (hoursPassedSinceLasteActive > 0.5) {
                     const errorMessage = `Warning! Server ${element.name} is inactive for ${hoursPassedSinceLasteActive} hour!`
                      console.log(errorMessage)
-                     bot.sendMessage(process.env.TG_USER, errorMessage) 
+                     
+                     const usersArray = process.env.TG_USER.split(',')
+                     usersArray.forEach(el => bot.sendMessage(el.trim(), errorMessage))
+                     
+                     
+                     
                 }
             }
 
