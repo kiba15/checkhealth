@@ -35,6 +35,8 @@ const checkEcho = async(serverslist) => {
 
         if (element.active) {
 
+            console.log(`Checking ${element.address}`)
+
             let response = undefined
             let status = 0
             try {
@@ -50,7 +52,6 @@ const checkEcho = async(serverslist) => {
                 );
 
                 status = response.status
-
              } catch (err) {
                 console.log(err.message);
                 console.log(element.address + ' ' + element.port)
@@ -67,16 +68,15 @@ const checkEcho = async(serverslist) => {
 
             else {
 
-                console.log(status)
+                console.log(`${element.address}, status ${status}, hoursPassedSinceLasteActive ${hoursPassedSinceLasteActive}`)
 
-                if (hoursPassedSinceLasteActive > 0.5) {
-                    const errorMessage = `Warning! Server ${element.name} is inactive for ${hoursPassedSinceLasteActive} hour!`
+                if (hoursPassedSinceLasteActive > 0.3) {
+                     const errorMessage = `Warning! Server ${element.name} is inactive for ${hoursPassedSinceLasteActive} hour!`
                      console.log(errorMessage)
                      
                      const usersArray = process.env.TG_USER.split(',')
                      usersArray.forEach(el => bot.sendMessage(el.trim(), errorMessage))
-                     
-                     
+       
                      
                 }
             }
