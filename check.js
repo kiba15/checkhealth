@@ -71,7 +71,7 @@ const checkEcho = async(serverslist) => {
                 console.log(`${element.address}, status ${status}, hoursPassedSinceLasteActive ${hoursPassedSinceLasteActive}`)
 
                 if (hoursPassedSinceLasteActive > 0.3) {
-                     const errorMessage = `Warning! Server ${element.name} is inactive for ${hoursPassedSinceLasteActive} hour!`
+                     const errorMessage = `Warning! Server ${element.name} ${element.address} is inactive for ${hoursPassedSinceLasteActive} hour!`
                      console.log(errorMessage)
                      
                      const usersArray = process.env.TG_USER.split(',')
