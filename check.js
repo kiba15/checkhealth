@@ -1,6 +1,5 @@
-import echoRouter from './routes/echo.routes.js'
-import settings from './settings.json' assert { type: "json" }
-
+﻿import echoRouter from './routes/echo.routes.js'
+//import settings from './settings.json' with { type: "json" }
 
 import {bot} from './modules/telegram.js'
 import { dateTimeToLocale } from "./modules/common.js";
@@ -13,8 +12,14 @@ import fetch from "node-fetch"
 dotenv.config()
 //  *****************************************************
 
+import fs2 from 'fs/promises';
+
+const raw = await fs2.readFile('./settings.json', 'utf-8');
+const settings = JSON.parse(raw);
+
+
 const intervalSeconds = 10
-const optionsServer = { key: fs.readFileSync('../cert/key.pem'), cert: fs.readFileSync('../cert/cert.pem') };
+//const optionsServer = { key: fs.readFileSync('../cert/key.pem'), cert: fs.readFileSync('../cert/cert.pem') };
 const PORT = process.env.PORT || 3000
 const app = express()
 app.use(express.json())
